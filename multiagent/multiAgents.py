@@ -85,6 +85,7 @@ class ReflexAgent(Agent):
             foodScore = (1.0/minFoodDist)
         else:
             foodScore = 0
+
         # The closer a Ghost is the worse the score
         ghostPos= []
         if len(newGhostStates) > 0:
@@ -95,15 +96,18 @@ class ReflexAgent(Agent):
         else:
             ghostScore = -1
 
+        # if the ghost is closer amplify the score
         if minGhostPos < 3:
             ghostScore = 15
 
+        # ghost is eatable!
         scaredScore = 0
         for scared in newScaredTimes:
             if scared > minGhostPos:
                 scaredScore += scared
                 ghostScore = 0
 
+        # make sure we arn't in the start bc then its negative
         if successorGameState.getScore() > 10:
             return (successorGameState.getScore() - ghostScore + foodScore + scaredScore)
         return successorGameState.getScore() 
