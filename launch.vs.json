@@ -84,13 +84,26 @@
 			"type": "python",
 			"interpreter": "(default)",
 			"interpreterArguments": "",
-			"scriptArguments": "",
+			"scriptArguments": "-q q1",
 			"env": {},
 			"nativeDebug": false,
 			"webBrowserUrl": "",
 			"project": "tracking\\autograder.py",
 			"projectTarget": "",
 			"name": "tracking autograder",
+			"workingDirectory": "tracking"
+		},
+		{
+			"type": "python",
+			"interpreter": "(default)",
+			"interpreterArguments": "",
+			"scriptArguments": "",
+			"env": {},
+			"nativeDebug": false,
+			"webBrowserUrl": "",
+			"project": "tracking\\busters.py",
+			"projectTarget": "",
+			"name": "tracking buster play",
 			"workingDirectory": "tracking"
 		}
 	]
