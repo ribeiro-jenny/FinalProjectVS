@@ -166,8 +166,51 @@ class MinimaxAgent(MultiAgentSearchAgent):
         """
         "*** YOUR CODE HERE ***"
 
+        # function returns pair of (action, cost) thourgh mini max tree parsing
+        return self.miniMax(gameState, 0, 0)[0]
 
-        util.raiseNotDefined()
+    # refrence from the http://ai.berkeley.edu/lecture_slides.html slides for algorithm
+    def miniMax(self, gameState, index, depth):
+        # index incremented to max start back at 0 and incr depth
+        if index >= gameState.getNumAgents():
+            index = 0
+            depth += 1
+
+        # if state is terminal return state's utility
+        if  gameState.isWin()  or  gameState.isLose() or depth >= self.depth:
+            return (Directions.STOP, self.evaluationFunction(gameState))
+        # if next agent is max -> maxValue
+        if index == 0:
+            return self.maxValue(gameState, index, depth)
+        # if next agent is min -> minValue
+        else:
+            return  self.minValue(gameState, index, depth)
+
+    def minValue(self, gameState, index, depth):
+        # v = +inf
+        p_inf = float('inf')
+        returnValue = (Directions.STOP, p_inf)
+
+        #for successor in state -> v = min(v, miniMax(s))
+        legalMoves = gameState.getLegalActions(index)
+        for action in legalMoves:
+            successor = gameState.generateSuccessor(index, action)
+            compValue = (action, self.miniMax(successor, index+1,  depth)[1])
+            returnValue = min(returnValue, compValue, key = lambda t:t[1]) # https://stackoverflow.com/questions/14802128/tuple-pairs-finding-minimum-using-python
+        return returnValue
+
+    def maxValue(self, gameState, index, depth):
+        # v = -inf
+        p_inf = float('-inf')
+        returnValue = (Directions.STOP, p_inf)
+
+        #for successor in state -> v = max(v, miniMax(s))
+        legalMoves = gameState.getLegalActions(index)
+        for action in legalMoves:
+            successor = gameState.generateSuccessor(index, action)
+            compValue = (action, self.miniMax(successor, index+1,  depth)[1])
+            returnValue = max(returnValue, compValue, key = lambda t:t[1])  # https://stackoverflow.com/questions/14802128/tuple-pairs-finding-minimum-using-python
+        return returnValue
 
 class AlphaBetaAgent(MultiAgentSearchAgent):
     """
