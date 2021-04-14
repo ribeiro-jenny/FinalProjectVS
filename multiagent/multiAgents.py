@@ -292,7 +292,52 @@ class ExpectimaxAgent(MultiAgentSearchAgent):
           legal moves.
         """
         "*** YOUR CODE HERE ***"
-        util.raiseNotDefined()
+        return self.expectiMax(gameState, 0, 0)[0]
+
+    def expectiMax(self, gameState, index, depth):
+        # index incremented to max start back at 0 and incr depth
+        if index >= gameState.getNumAgents():
+            index = 0
+            depth += 1
+
+        #if state is terminal -> return state utility
+        if  gameState.isWin()  or  gameState.isLose() or depth >= self.depth:
+            return (Directions.STOP, self.evaluationFunction(gameState))
+        #if the next agent is MAX: return max-value(state)
+        if index == 0:
+            return self.maxValue(gameState, index, depth)
+        #if the next agent is EXP: return exp-value(state)
+        else:
+            return  self.expValue(gameState, index, depth)
+
+    def maxValue(self, gameState, index, depth):
+        # v = -inf
+        p_inf = float('-inf')
+
+        returnValue = (Directions.STOP, p_inf)
+
+        #for each successor of state -> max(v, value(successor))
+        legalMoves = gameState.getLegalActions(index)
+        for action in legalMoves:
+            successor = gameState.generateSuccessor(index, action)
+            compValue = (action, self.expectiMax(successor, index+1,  depth)[1])
+            returnValue = max(returnValue, compValue, key = lambda t:t[1])  
+
+        return returnValue
+
+
+    def expValue(self, gameState, index, depth):
+        cost = 0
+
+        #for each successor of state -> v += p * value(successor)
+        legalMoves = gameState.getLegalActions(index)
+        for action in legalMoves:
+            # prob is every outcome not pacman -> ghost moves
+            prob = 1.0 / len(legalMoves)
+            successor = gameState.generateSuccessor(index, action)
+            cost += prob*self.expectiMax(successor, index+1,  depth)[1]
+            returnValue= (action, cost) 
+        return returnValue
 
 def betterEvaluationFunction(currentGameState):
     """
