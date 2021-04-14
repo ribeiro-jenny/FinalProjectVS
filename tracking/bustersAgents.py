@@ -18,6 +18,8 @@ from game import Directions
 from keyboardAgents import KeyboardAgent
 import inference
 import busters
+from operator import itemgetter
+import operator
 
 class NullGraphics:
     "Placeholder for graphics"
@@ -163,4 +165,20 @@ class GreedyBustersAgent(BustersAgent):
             [beliefs for i, beliefs in enumerate(self.ghostBeliefs)
              if livingGhosts[i+1]]
         "*** YOUR CODE HERE ***"
-        util.raiseNotDefined()
+
+       
+        # first move to most likely position of uncaptured ghosts
+        # ghost = {pos : prob}
+        returnValue = {(0,0) : 0.0}
+        for ghost in livingGhostPositionDistributions:
+            sortedDic = sorted(ghost.items(), key=itemgetter(1), reverse=True)   
+            print sortedDic[0]
+
+            #    returnValue = max(returnValue, ghost, key = lambda t:t[1])
+        #    print ghost
+        #for pos in ghost:
+        #    ghost[pos] 
+        
+        # next minimize distance to closest ghost
+        
+        return Directions.STOP
