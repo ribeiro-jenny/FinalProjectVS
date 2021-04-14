@@ -221,7 +221,19 @@ class ExactInference(InferenceModule):
         positions after a time update from a particular position.
         """
         "*** YOUR CODE HERE ***"
-        util.raiseNotDefined()
+        allPossible = util.Counter()
+       
+        # previous ghost position = p
+        for p in self.legalPositions:
+            # distribution over new positions for the ghost, given its previous position (p) as well as Pacman's current  position
+            newPosDist = self.getPositionDistribution(self.setGhostPosition(gameState, p))
+
+            for newPos, prob in newPosDist.items():
+                # newPosDist[p] = Pr( ghost is at position p at time t + 1 | ghost is at position oldPos at time t )
+                allPossible[newPos] = allPossible[newPos] + (prob *self.beliefs[p])
+        
+        allPossible.normalize()
+        self.beliefs = allPossible
 
     def getBeliefDistribution(self):
         return self.beliefs
