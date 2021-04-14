@@ -344,10 +344,78 @@ def betterEvaluationFunction(currentGameState):
       Your extreme ghost-hunting, pellet-nabbing, food-gobbling, unstoppable
       evaluation function (question 5).
 
-      DESCRIPTION: <write something here so we know what you did>
+      DESCRIPTION: 
+      Food is the most important -> go to food first
+        if a ghost is near us consider
+            can we eat a pellet to make it killable?
+                if yes -> eat pellet kill ghost
+                if no -> run away (hopefully towards more food)
+        if no ghost -> eat food!
     """
     "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+    foodList = currentGameState.getFood().asList()
+    pacPos = currentGameState.getPacmanPosition()
+    newGhostStates = currentGameState.getGhostStates()
+    newScaredTimes = [ghostState.scaredTimer for ghostState in newGhostStates]
+    ghostKillers = currentGameState.getCapsules()
+
+
+     # The closer the food better the score
+    foodScore = 0
+    distanceFoodScore = []
+    if len(foodList) > 0:
+        for food in foodList:
+            distanceFoodScore.append(util.manhattanDistance(pacPos, food))
+        minFoodDist = min(distanceFoodScore)
+        foodScore = (1.0 / minFoodDist) * 10.0
+
+    # The closer a Ghost is the worse the score
+    ghostPos= []
+    if len(newGhostStates) > 0:
+        for ghost in newGhostStates:
+            ghostPos.append(util.manhattanDistance(pacPos, ghost.getPosition()))
+        minGhostPos = min(ghostPos)
+
+    # if the ghost is closer amplify the score
+    if minGhostPos < 1:
+        ghostScore =  15.0
+    elif minGhostPos < 4:
+        ghostScore = (1.0 / minGhostPos) * 15.0
+    else:
+        ghostScore = (1.0 / minGhostPos) * 5.0
+
+    # can make ghosts killable if he is near us
+    killerScore = 0
+    if minGhostPos < 3 and len(ghostKillers) > 0:
+        killerPos = []
+        for killer in ghostKillers:
+            killerPos.append(util.manhattanDistance(pacPos, killer))
+            minKiller = min(killerPos)
+            killerScore = 1.0 / minKiller
+        if minKiller < 1:
+            killerScore = 20.0
+
+    # ghost is eatable!
+    scaredScore = 0
+    for scared in newScaredTimes:
+        if scared > minGhostPos:
+            scaredScore += scared
+            ghostScore = 0
+
+    return  foodScore + currentGameState.getScore() - ghostScore + killerScore + scaredScore
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 # Abbreviation
 better = betterEvaluationFunction
