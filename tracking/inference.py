@@ -322,7 +322,7 @@ class ParticleFilter(InferenceModule):
                 trueDistance = util.manhattanDistance(p, pacmanPosition)
                 if emissionModel[trueDistance] > 0.0:
                  allPossible[p] += emissionModel[trueDistance] * prob[p]
-        #allPossible.normalize()
+        allPossible.normalize()
        
 
         # if all particles have weight 0 -> resample particles uniformly at random from the set of legal positions
