@@ -165,20 +165,21 @@ class GreedyBustersAgent(BustersAgent):
             [beliefs for i, beliefs in enumerate(self.ghostBeliefs)
              if livingGhosts[i+1]]
         "*** YOUR CODE HERE ***"
-
        
+
         # first move to most likely position of uncaptured ghosts
         # ghost = {pos : prob}
-        returnValue = {(0,0) : 0.0}
+        returnValue = ((0,0), 0.0)
         for ghost in livingGhostPositionDistributions:
             sortedDic = sorted(ghost.items(), key=itemgetter(1), reverse=True)   
-            print sortedDic[0]
-
-            #    returnValue = max(returnValue, ghost, key = lambda t:t[1])
-        #    print ghost
-        #for pos in ghost:
-        #    ghost[pos] 
+            returnValue = sortedDic[0]
+           
         
         # next minimize distance to closest ghost
-        
-        return Directions.STOP
+        returnAction = []
+        bestMove = Directions.STOP
+        for action in legal:
+             successorPosition = Actions.getSuccessor(pacmanPosition, action)
+             returnAction.append((action, self.distancer.getDistance(successorPosition, returnValue[0])))
+             bestMove = min(returnAction, key = lambda t:t[1])
+        return bestMove[0]
