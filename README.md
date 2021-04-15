@@ -9,6 +9,10 @@ Part 2:
 http://ai.berkeley.edu/tracking.ht
 
 ### How to Run on Windows Visual Studio 2019
+  1. Open Visual Studio
+  2. Tools -> Python -> Python Environments 
+         2.1 This will open up a side window now click "Add Environments"
+         2.2 This will open a pop-up. Go to Python installation and install 2.7
 
 1. Have Python 2.7 downloaded in Visual Studio
 	- https://docs.microsoft.com/en-us/visualstudio/python/installing-python-support-in-visual-studio?view=vs-2019
@@ -19,7 +23,7 @@ http://ai.berkeley.edu/tracking.ht
 |    start up item				| corresponding command           |  
 |-------------------------------|---------------------------------|
 | regular pacman				| python pacman.py                |
-| multiagent autograder			| python autograder.py            |   
+| multiagent autograder			| python autograder.py            |  
 | multiagent reflex agent		| python pacman.py -p ReflexAgent |  
 | multiagent minimax agent		| python pacman.py -p MinimaxAgent|  
 | multiagent alpha-beta agent	| python pacman.py -p AlphaBetaAgent -l trappedClassic -a depth=3 -q  |  
