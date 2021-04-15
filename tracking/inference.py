@@ -268,13 +268,20 @@ class ParticleFilter(InferenceModule):
         weight with each position) is incorrect and may produce errors.
         """
         "*** YOUR CODE HERE ***"
+        self.particles = []
+        num = self.numParticles
 
         # A particle (sample) is a ghost position
+        particlesPerTile = self.numParticles / len(self.legalPositions)
         self.particles = []
-        print self.numParticles
-        for x in range(self.numParticles):
-            for pos in self.legalPositions:
+
+        for pos in self.legalPositions:
+            for x in range(particlesPerTile):
                 self.particles.append(pos)
+        
+        #for x in range(self.numParticles):
+        #    for pos in self.legalPositions:
+        #        self.particles.append(pos)
 
     def observe(self, observation, gameState):
         """
@@ -440,6 +447,7 @@ class JointParticleFilter:
         weight with each position) is incorrect and may produce errors.
         """
         "*** YOUR CODE HERE ***"
+        # particle is a tuple of ghost positions.
 
     def addGhostAgent(self, agent):
         """
