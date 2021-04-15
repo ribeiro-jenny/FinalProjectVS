@@ -271,6 +271,7 @@ class ParticleFilter(InferenceModule):
 
         # A particle (sample) is a ghost position
         self.particles = []
+        print self.numParticles
         for x in range(self.numParticles):
             for pos in self.legalPositions:
                 self.particles.append(pos)
@@ -348,7 +349,11 @@ class ParticleFilter(InferenceModule):
         a belief distribution.
         """
         "*** YOUR CODE HERE ***"
-        util.raiseNotDefined()
+        newParticles = []
+        for p in self.particles:
+            newPosDist = self.getPositionDistribution(self.setGhostPosition(gameState, p))
+            newParticles.append(util.sample(newPosDist))
+        self.particles = newParticles
 
     def getBeliefDistribution(self):
         """
