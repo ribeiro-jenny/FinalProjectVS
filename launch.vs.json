@@ -84,7 +84,7 @@
 			"type": "python",
 			"interpreter": "(default)",
 			"interpreterArguments": "",
-			"scriptArguments": "-q q6 --no-graphics",
+			"scriptArguments": "-q q7 --no-graphics",
 			"env": {},
 			"nativeDebug": false,
 			"webBrowserUrl": "",
