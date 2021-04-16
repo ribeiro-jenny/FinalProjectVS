@@ -98,9 +98,28 @@ multiAgents.py:147
     - MinimaxAgent
 ```
 
-#### Q3
+#### Q3 Alpha-Beta Pruning
+
+
 ##### Description 
+
+This algorithm builds on the Minimax search by removing the nodes that need to be evaluated.
+Nodes are removed that are certainily a worse move than a previously examined move option. This elimates going down the tree of a move that it not usefull.
+
+![alpha beta algo](imgs/AlphaBetaTree.JPG)
+
+The algorithm pseudocode is:
+![alpha beta algo](imgs/AlphaBeta.JPG)
+
+
+
 ##### Files Edited
+
+```
+multiAgents.py:217
+    - MinimaxAgent
+```
+
 #### Q4
 
 ##### Description 
@@ -130,3 +149,4 @@ multiAgents.py:147
 
 http://ai.berkeley.edu/lecture_slides.html
 https://towardsdatascience.com/how-a-chess-playing-computer-thinks-about-its-next-move-8f028bd0e7b1
+https://en.wikipedia.org/wiki/Alpha%E2%80%93beta_pruning

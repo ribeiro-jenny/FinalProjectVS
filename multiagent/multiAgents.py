@@ -242,9 +242,9 @@ class AlphaBetaAgent(MultiAgentSearchAgent):
         # if next agent is max -> maxValue
         if index == 0:
             return self.maxValue(gameState, index, depth, alpha, beta)
-        # if next agent is min -> minValue
+        # else next agent is min -> minValue
         else:
-            return  self.minValue(gameState, index, depth, alpha, beta)
+            return self.minValue(gameState, index, depth, alpha, beta)
 
     def minValue(self, gameState, index, depth, alpha, beta):
         # v = +inf
@@ -258,6 +258,7 @@ class AlphaBetaAgent(MultiAgentSearchAgent):
             compValue = (action, self.alphaBeta(successor, index+1,  depth, alpha, beta)[1])
             returnValue = min(returnValue, compValue, key = lambda t:t[1]) 
 
+            # pruning
             if returnValue[1] < alpha: 
                 return returnValue
             beta = min(beta, returnValue[1])
@@ -275,6 +276,7 @@ class AlphaBetaAgent(MultiAgentSearchAgent):
             compValue = (action, self.alphaBeta(successor, index+1,  depth, alpha, beta)[1])
             returnValue = max(returnValue, compValue, key = lambda t:t[1])  
             
+            # pruning
             if returnValue[1] > beta: 
                 return returnValue
             alpha = max(alpha, returnValue[1])
