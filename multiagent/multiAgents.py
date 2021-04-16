@@ -329,7 +329,6 @@ class ExpectimaxAgent(MultiAgentSearchAgent):
 
         return returnValue
 
-
     def expValue(self, gameState, index, depth):
         cost = 0
 

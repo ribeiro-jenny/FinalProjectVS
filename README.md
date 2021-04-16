@@ -68,6 +68,7 @@ The autograder checks for the algorithms correctness and also runs the algorithm
 The task was to design a better evaluation function for pacmans next move. The stratagy for this function was to 
 increase the score for moves that go towards food, decrease the score based on the ghost position (the closer the ghost the worse the deduction), and check if the ghost was in a killable state (which will increase the score).
 It was useful to use the reciprical of the food distance and enemy distance because the closer they were meant the greater impact on the score.
+It considered the possible actions available and calculated to score. 
 
 This is not meant to be a perfect agent but an introduction into the project.
 
@@ -120,14 +121,61 @@ multiAgents.py:217
     - MinimaxAgent
 ```
 
-#### Q4
+#### Q4 Expectimax
+
 
 ##### Description 
+Expectimax improves on the previous algorithms as it incorporates a probabilistic model for the oponent move rather than assuming the optimal move. 
+ 
+![Expectimax algo](imgs/Expectimax.JPG)
+
+
+The change can be seen as in this varient when the pacman is trapped it still takes the chance to move towards the food hoping that the ghost makes a suboptimal move. This leads to the pacman dying with less points in this case. But overall it perfoms better as there is the case that the ghost makes a suboptimal move then the pacman is correct in taking a chance to go for more food. This can be seen in running the trapped version of the map for both alpha beta and expectimac:
+
+```
+python pacman.py -p AlphaBetaAgent -l trappedClassic -a depth=3 -q -n 10
+python pacman.py -p ExpectimaxAgent -l trappedClassic -a depth=3 -q -n 10
+```
+AlphaBetaAgent will always lose and ExpectimaxAgent wins around 1/2 the time.
+
+The probability is determined by the amount of move options the agent has at a given time e.i. `1/len(possibleMoves)`
+
 ##### Files Edited
-#### Q5
+```
+multiAgents.py:286
+    - ExpectimaxAgent
+```
+
+#### Q5 Even Better Evaluation Function
 
 ##### Description 
+
+As opposed to the evaluation from Q1 this function considers the game state rather than actions available to score the best move. I used a linear combination of features to determine the score. The features considered
+followed: 
+
+      Food is the most important -> go to food first
+        if a ghost is near us consider
+            can we eat a pellet to make it killable?
+                if yes -> eat pellet kill ghost
+                if no -> run away (hopefully towards more food)
+        if no ghost -> eat food!
+
+Each consideration added or deducted from the score at different rates. For example food is more important the the bonus pellet that turns the ghosts white. Another example is if a ghost is near the pacman this takes priority to run away from the ghost to safety as staying alive is more important than points.
+
 ##### Files Edited
+```
+multiAgents.py:385
+    - betterEvaluationFunction
+```
+
+
+#### General Discussion of Part 1
+
+After completing this homework the difference in optimisic and pessimistic assumptions in AI. 
+Assuming that the enemy makes the best move can lead to an early death or an elongated game where the pacman runs away from the ghost rather than moving towards a food item.
+Constratingly, using a probablitic model can improve on the simple assumption but can still lead to deaths when chances are taking while assuming non-optimal moves for the enemy.
+Overall, the expetimax algorthim would be the most fun to play agaisn't because it isn't predictable.
+
 ### Part 2
 
 #### Q1
