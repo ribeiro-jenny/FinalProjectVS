@@ -92,6 +92,7 @@ class ReflexAgent(Agent):
             for ghost in newGhostStates:
                ghostPos.append(util.manhattanDistance(newPos, ghost.getPosition()))
             minGhostPos = min(ghostPos)
+            minGhostPos = max(minGhostPos, 0.1)
             ghostScore = (1.0/minGhostPos)
         else:
             ghostScore = -1

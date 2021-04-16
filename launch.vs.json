@@ -25,33 +25,33 @@
 			"webBrowserUrl": "",
 			"project": "multiagent\\autograder.py",
 			"projectTarget": "",
-			"name": "multiagent autograder",
+			"name": "3. multiagent autograder",
 			"workingDirectory": "multiagent"
 		},
 		{
 			"type": "python",
 			"interpreter": "(default)",
 			"interpreterArguments": "",
-			"scriptArguments": "-p ReflexAgent",
+			"scriptArguments": "--frameTime 0 -p ReflexAgent -k 1",
 			"env": {},
 			"nativeDebug": false,
 			"webBrowserUrl": "",
 			"project": "multiagent\\pacman.py",
 			"projectTarget": "",
-			"name": "multiagent reflex agent",
+			"name": "1.1 multiagent reflex agent",
 			"workingDirectory": "multiagent"
 		},
 		{
 			"type": "python",
 			"interpreter": "(default)",
 			"interpreterArguments": "",
-			"scriptArguments": "-p MinimaxAgent -l openClassic  -a depth=3",
+			"scriptArguments": "-p MinimaxAgent -l minimaxClassic -a depth=4", // -p MinimaxAgent -l trappedClassic -a depth=3
 			"env": {},
 			"nativeDebug": false,
 			"webBrowserUrl": "",
 			"project": "multiagent\\pacman.py",
 			"projectTarget": "",
-			"name": "multiagent minimax agent",
+			"name": "1.2 multiagent minimax agent",
 			"workingDirectory": "multiagent"
 		},
 		{
