@@ -1,6 +1,6 @@
 # Final Project - PacMan
 
-For my final project I completed the UC Berkeley PacMan AI homework project 2 and 4.
+For my final project, I completed the UC Berkeley PacMan AI Homework Projects 2 and 4.
 
 ## Links to Project Source Descriptions
 
@@ -15,17 +15,17 @@ http://ai.berkeley.edu/tracking.ht
 
 2. Tools -> Python -> Python Environments 
         
-    2.1 This will open up a side window now click "Add Environments"
+    2.1 This will open up a side window. Now click "Add Environments"
         
     2.2 This will open a pop-up. Go to Python installation and install 2.7
 
-3. If this doesn't work follow microsofts instruction guide :  https://docs.microsoft.com/en-us/visualstudio/python/installing-python-support-in-visual-studio?view=vs-2019
+3. If this doesn't work, follow Microsoft's instruction guide :  https://docs.microsoft.com/en-us/visualstudio/python/installing-python-support-in-visual-studio?view=vs-2019
 
 4. There is a Python env attached in the Project Code. Make sure it is activated.
 	
-    4.1. This should automatically activate but if not for to Tools -> Python -> Python Environment -> Add Environment and add the Existing Environment 
+    4.1. This should automatically activate, but if not, go to Tools -> Python -> Python Environment -> Add Environment and add the Existing Environment 
 
-5. Choose wanted start up item:
+5. Choose desired start up item:
 
 |    start up item				                | corresponding command                                                                             |  
 |-----------------------------------------------|---------------------------------------------------------------------------------------------------|
@@ -48,7 +48,7 @@ http://ai.berkeley.edu/tracking.ht
 
 ### How to Run Linux
 
-Assigment Links have instructions for Linux. In short:
+Assignment links have instructions for Linux. In short:
 
 1. Open terminal at `multiagent` or `tracking`
 
@@ -56,7 +56,7 @@ Assigment Links have instructions for Linux. In short:
 
     PacMan Classic: `python pacman.py`
 
-For specific run commands to each part refer to the assigments or the table above.
+For specific run commands to each part, refer to the assignments or the table above.
 
 ## Discussion
 
@@ -65,7 +65,7 @@ Below is a description of each part, the corresponding specific test command/sta
 #### Autograder
 
 The autograder is provided by UC Berkeley. Their grading requirements are described in the links above. These can be run without the graphical component by using `--no-graphics`. Modify the `"scriptArguments"` in `launch.vs.json`.
-The autograder checks for the algorithms correctness and also runs the algorithm in game. The grade is based on the algorithms correctness and the average score/wins of the in game tests.
+The autograder checks for the algorithms correctness and also runs the algorithm in-game. The grade is based on the algorithm's correctness and the average score/wins of the in-game tests.
 
 To run the autograde, especially the one that grades the particle filter, it is best to run on the Khoury server:
 
@@ -85,15 +85,15 @@ python autograder.py
 
 ### Part 1 Multi-Agent Search
 
-This assignment explores different decision making algorithms for the both ghost and pacman agents.
+This assignment explores different decision-making algorithms for both ghost and pacman agents.
 
 #### Q1 Reflex Agent
 
 ##### Description 
 
-The task was to design a better evaluation function for pacman's next move. The stratagy for this function was to 
+The task was to design a better evaluation function for PacMan's next move. The strategy for this function is to 
 increase the score for moves that go towards food, decrease the score based on the ghost position (the closer the ghost the worse the deduction), and check if the ghost was in a killable state (which will increase the score).
-It was useful to use the reciprical of the food distance and enemy distance because the closer they were meant the greater impact on the score. Additionally, each component had a different weight. It considered the possible actions available and calculated the corresponding score for the move. 
+It was useful to use the reciprocal of the food distance and enemy distance because the closer they were, the greater the impact on the score. Additionally, each component had a different weight. It considered the possible actions available and calculated the corresponding score for the move. 
 
 This is not meant to be a perfect agent but an introduction into the project.
 
@@ -113,12 +113,12 @@ multiAgents.py:76
 
 ##### Description 
 
-MiniMax decision making algorithms work well for zero-sum games. The algorithm assumes it is playing agaisnt an optimal player.
-It works by assigning pacman to aim for the maximum possible score and the ghosts aiming for the minimum possible score. This works because an increase in the pacmans score means a decrease in the ghosts score (zero-sum game). To keep a maximum score if the pacman knows there is no option but to die it walks into a ghost to end the game with the max points possible.
+MiniMax decision-making algorithms work well for zero-sum games. The algorithm assumes it is playing against an optimal player.
+It works by assigning PacMan to aim for the maximum possible score and the ghosts aiming for the minimum possible score. This works because an increase in the PacMan's score means a decrease in the ghost's score (zero-sum game). To keep a maximum score if the pacman knows there is no option but to die, it walks into a ghost to end the game with the max points possible.
 
-Note that this agent will not win every game (as expected) both because the ghost may not make the optimal move and because of the depth limitation.
+Note that this agent will not win every game (as expected), both because the ghost may not make the optimal move and because of the depth limitation.
 
-The minimax algorithm has limitions. One must limit the depth searched because it would not be fast enough to play through an entire possibility of game outcomes every move. Limiting the depth works but the algorithm is no longer returning the most optimal move for the full game but just of that depth search.
+The minimax algorithm has limitions. One must limit the depth searched because it would not be fast enough to play through an entire possibility of game outcomes for every move. Limiting the depth works, but the algorithm is no longer returning the most optimal move for the full game, just of that depth search.
 
 ![mini max algo](imgs/MiniMaxAlgo.JPG)
 
@@ -138,7 +138,7 @@ multiAgents.py:147
 
 ##### Description 
 
-This algorithm builds on the MiniMax search by removing the nodes that are certainily a worse move than a previously examined move option - meaning those moves will result in a lower score. This elimates going down the tree of a move that is not useful in maximizing the score.
+This algorithm builds on the MiniMax search by removing the nodes that are determined tobe a worse move than a previously examined move option - meaning those moves will result in a lower score. This elimates going down the tree of a move that is not useful in maximizing the score.
 
 ![alpha beta algo](imgs/AlphaBetaTree.JPG)
 
@@ -161,11 +161,11 @@ multiAgents.py:217
 
 ##### Description 
 
-Expectimax improves on the previous algorithms as it incorporates a probabilistic model for the oponent move rather than assuming the optimal move. The probability is determined by the amount of move options the agent has at a given time e.i. `1/len(possibleMoves)`. Different methods can be used to calculate the probability such as using an evaluation function for score, random probability, or uniform distribution.
+Expectimax improves on the previous algorithms as it incorporates a probabilistic model for the oponent move rather than assuming the optimal move. The probability is determined by the amount of move options the agent has at a given time e.i. `1/len(possibleMoves)`. Different methods can be used to calculate the probability, such as using an evaluation function for score, random probability, or uniform distribution.
  
 ![Expectimax algo](imgs/Expectimax.JPG)
 
-The change can be seen as in this varient of the algorithm when the pacman is trapped it still takes the chance to move towards the food hoping that the ghost makes a suboptimal move. This leads to the pacman dying with less points in this case. But overall it performs better as there is the case that the ghost makes a suboptimal move then the pacman is correct in taking a chance to go for more food. This can be seen in running the trapped version of the map for both alpha beta and expectimax:
+The change can be seen as in this variant of the algorithm when PacMan is trapped, it still moves towards the food hoping that the ghost makes a suboptimal move. This leads to PacMan dying with fewer points in this case. Overall, it performs better as there is the case that the ghost makes a suboptimal move, making PacMan correct in taking a chance to go for more food. This can be seen in running the trapped version of the map for both alpha beta and expectimax:
 
 ```
 python pacman.py -p AlphaBetaAgent -l trappedClassic -a depth=3 -q -n 10
@@ -191,7 +191,7 @@ multiAgents.py:286
 
 ##### Description 
 
-As opposed to the evaluation from Q1 this function considers the game state rather than actions available to score the best move. I used a linear combination of features to determine the score. The features considered are: 
+As opposed to the evaluation from Q1, this function considers the game state rather than the actions available to score the best move. I used a linear combination of features to determine the score. The features considered are: 
 
       Food is the most important -> go to food first
         if a ghost is near us consider
@@ -200,7 +200,7 @@ As opposed to the evaluation from Q1 this function considers the game state rath
                 if no -> run away (hopefully towards more food)
         if no ghost -> eat food!
 
-Each consideration adds or deducts from the score at different rates. For example food is more important the the bonus pellet that turns the ghosts white. Another example is if a ghost is near the pacman this takes priority to run away from the ghost to safety as staying alive is more important than points.
+Each consideration adds or deducts from the score at different rates. For example, food is more important the the bonus pellet that turns the ghosts white. Another example is if a ghost is near PacMan, running away from the ghost takes priority to safety as staying alive is more important than points.
 
 ##### Files Edited
 
@@ -221,22 +221,22 @@ Assuming that the enemy makes the best move can lead to an early death or an elo
 
 ### Part 2 GhostBusters
 
-In this version of pacman, pacman sadly cannot see the ghosts but he can hear them! The following explores different algorithms for locating the ghosts.
-The pacman hears via noisy readings of the manhattan distance to the ghost.
+In this version of PacMan, he sadly cannot see the ghosts but he can hear them! The following explores different algorithms for locating the ghosts.
+PacMan hears via noisy readings of the manhattan distance to the ghost.
 
-For these implementations each has a playable version and a auto play version by a greedy pacman. In the auto play the ghosts have been displayed (`-s`) so that the process can be easily visualized. In the playable version no ghosts are shown to be true to pacmans perspective.
+For these implementations, each has a playable version and an auto play version by a greedy pacman. In the auto play, the ghosts have been displayed (`-s`) so that the process can be easily visualized. In the playable version, no ghosts are shown to be true to PacMan's perspective.
 
 Play `2 Tracking Buster Player` for a crude tracking algorithm. This can be compared to the improvements made below for tracking.
 
-Note: The brighter the tile the more certain pacman is that there is a ghost located there
+Note: The brighter the tile, the more certain PacMan is that there is a ghost located there.
  
 #### Q1 - Q2 Exact Interface
 
 ##### Description 
 
-Here the update of pacmans belief distribution based on the sensor information was implemented. The distrubition starts out uniform and is updated to the information gathered at each turn. When a ghost is captured its distrubition is removed.
+Here the update of PacMan's belief distribution based on the sensor information that was implemented. The distribution starts out uniform and is updated to the information gathered at each turn. When a ghost is captured, its distribution is removed.
 
-Q2 builds on this initial implementation and includes filtering the noisy data. Because the pacman tracks time it can filter out data that says the pacman went from 2 squares away to 10 because a ghost can only move one square per turn.
+Q2 builds on this initial implementation and includes filtering the noisy data. Because PacMan tracks time, it can filter out data that says PacMan went from 2 squares away to 10 because a ghost can only move one square per turn.
 
 The progression of the distribution can be seen:
 ![particles](imgs/Exact2.JPG)
@@ -261,7 +261,7 @@ interface.py:111
 
 ##### Description 
 
-The greedy pacman agent assumes that the ghost is located in the most likely square based on its observations. It will move towards the most likely closest ghost (so the closets square with the highest probability).
+The greedy PacMan agent assumes that the ghost is located in the most likely square based on its observations. It will move towards the likeliest closest ghost (so, the closest square with the highest probability).
 
 ##### Files Edited
 
@@ -279,12 +279,12 @@ bustersAgents.py:125
 
 ##### Description 
 
-Q4 - Q5 focused on implementing a particle filtering algorithm for locating the ghost. The algorithm follows this flow (as shown in the picture below): initial distribution -> sampling -> weighting -> resampling. This repeats on every turn.
+Q4 - Q5 focused on implementing a particle filtering algorithm to locate the ghost. The algorithm follows this flow (as shown in the picture below): initial distribution -> sampling -> weighting -> resampling. This repeats on every turn.
 
 Particles are used to mirror the probability distribution as shown:
 ![particles](imgs/particleTimeLine.JPG)
 
-Q5 extends this algorithm by filtering out noisy data as explained in Q1. Although it filters out noisy data there is still noise as seen below. This is because this is a probabilitic model versus using the exact position information in Q1/2. 
+Q5 extends this algorithm by filtering out noisy data as explained in Q1. Although it filters out noisy data, there is still noise as seen below. This is because this is a probabilitic model, versus using the exact position information in Q1/2. 
 
 ![particles](imgs/particleFilter.JPG)
 
@@ -308,7 +308,7 @@ interface.py:241
 
 ##### Description 
 
-This algorithm improves on the Q4-Q5 by now considering multiple ghosts simiulationasly versus tracking each on independently. This is done using a dynamic Bayes net and particles. Each particle is now a tuple of ghost positions rather than just a single position. The algorithm follows the same structure above: initial distribution -> sampling -> weighting -> resampling.
+This algorithm improves on the Q4-Q5 by now considering multiple ghosts simultaneously, versus tracking each one independently. This is done using a dynamic Bayes net and particles. Each particle is now a tuple of ghost positions rather than just a single position. The algorithm follows the same structure above: initial distribution -> sampling -> weighting -> resampling.
 
 Q7 extends this algorithm by filtering out noisy data as explained in Q1.
 
@@ -316,7 +316,7 @@ The Progression can be seen:
 ![particles](imgs/JointFilter1.JPG)
 ![particles](imgs/JointFilter2.JPG)
 
-Tracking ghosts simiulationasly is more accurate as more data is being taken into consideration. Knowing that the ghosts will move onto each other helps distinguish the probability of their next move.
+Tracking ghosts simultaneously is more accurate as more data is being taken into consideration. Knowing that the ghosts will move onto each other helps distinguish the probability of their next move.
 
 ##### Files Edited
 
@@ -337,9 +337,9 @@ interface.py:410
 
 #### General Discussion of Part 2
 
-The most diffucult part of this part was the particle filtering. Originally I mistakenly tripled the particle count causing the algorithm to run incredible slowly. Particle filtering is an expensive computation that can be speed up with parallezation. It would be intresting to extend this assigment by paralizing the filtering to see what the speed up would be.
+The most difficult part of this section was the particle filtering. Originally, I mistakenly tripled the particle count, causing the algorithm to run incredibly slowly. Particle filtering is an expensive computation that can be sped up with parallezation. It would be interesting to extend this assignment by paralizing the filtering to see what the speed up would be.
 
-Although it was intresting to explore particle filters I do not think it would be useful for Game AI. It is most useful in uncontrolled volitale enviorments. Since you can give agents all information needed in a game this algorithm would be over kill. It is computationally expensive and wouldn't improve the game play by using it.
+Although it was interesting to explore particle filters, I do not think it would be useful for Game AI. It is most useful in uncontrolled volitale enviorments. Since you can give agents all information needed in a game, this algorithm would be overkill. It is computationally expensive and wouldn't improve the gameplay by using it.
 
 ## Refrences
 
