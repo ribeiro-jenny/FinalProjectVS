@@ -14,15 +14,18 @@ http://ai.berkeley.edu/tracking.ht
 1. Open Visual Studio
 
 2. Tools -> Python -> Python Environments 
-        2.1 This will open up a side window now click "Add Environments"
-        2.2 This will open a pop-up. Go to Python installation and install 2.7
+        
+    2.1 This will open up a side window now click "Add Environments"
+        
+    2.2 This will open a pop-up. Go to Python installation and install 2.7
 
 3. If this doesn't work follow microsofts instruction guide :  https://docs.microsoft.com/en-us/visualstudio/python/installing-python-support-in-visual-studio?view=vs-2019
 
-2. There is a Python env attached in the Project Code. Make sure it is activated.
-	2.1. This should automatically activate but if not for to Tools -> Python -> Python Environment -> Add Environment and add the Existing Environment 
+4. There is a Python env attached in the Project Code. Make sure it is activated.
+	
+    4.1. This should automatically activate but if not for to Tools -> Python -> Python Environment -> Add Environment and add the Existing Environment 
 
-3. Choose wanted start up item:
+5. Choose wanted start up item:
 
 |    start up item				| corresponding command           |  
 |-------------------------------|---------------------------------|
@@ -40,16 +43,16 @@ Assigment Links have instructions for Linux. In short:
 
 1. Open terminal at `multiagent` or `tracking`
 
-Autograder: `python autograder.py`
+    Autograder: `python autograder.py`
 
-PacMan Classic: `python pacman.py`
+    PacMan Classic: `python pacman.py`
 
 For specific run commands to each part refer to the assigments or the table above. This are mainly used in testing and the autograder can be run for an overall view.
 Part 1 Specific Example: `python pacman.py -p ReflexAgent` 
 
 ## Discussion
 
-Below is a description of each part, the corresponding specific test command (you may need to add/modify a startup item if it is not a main one listed above), and the strategy used.
+Below is a description of each part, the corresponding specific test command, and the strategy used.
 
 #### Autograder
 
@@ -79,12 +82,22 @@ multiAgents.py:76
 
 ##### Description 
 
-MiniMax algorithms work well for zero-sum games. 
+MiniMax decision making algorithms work well for zero-sum games. The algorithm assumes it is playing agaisnt an optimal player. It 
+It works by assigning pacman was aiming for the maximum score and the ghosts aiming for the minimum score. This works because an increase in the pacmans score means a decrease in the ghosts score (zero-sum game).  
+To keep a maximum score if the pacman knows there is no option but to die it walks into a ghost to end the game with the max points possible.
 
-![alt text](/img/MiniMaxAlgo.JPG)
+Note that this agent will not win every game (as expected) both because the ghost may not make the optimal move and because of the depth limitation.
+
+The minimax algorithm has limitions though. One must limit the depth searched because it would not be fast enough to play through an entire possibility of game outcomes every move. Limiting the depth works but the algorithm is no longer returning the most optimal move for the full game but just of that depth search.
+![mini max algo](imgs/MiniMaxAlgo.JPG)
 
 ##### Files Edited
-MinimaxAgent class stub in multiAgents.py.
+
+```
+multiAgents.py:147
+    - MinimaxAgent
+```
+
 #### Q3
 ##### Description 
 ##### Files Edited
@@ -116,3 +129,4 @@ MinimaxAgent class stub in multiAgents.py.
 ## Refrences
 
 http://ai.berkeley.edu/lecture_slides.html
+https://towardsdatascience.com/how-a-chess-playing-computer-thinks-about-its-next-move-8f028bd0e7b1

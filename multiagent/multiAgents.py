@@ -82,6 +82,7 @@ class ReflexAgent(Agent):
             for food in foodPos:
                 distanceFoodScore.append(util.manhattanDistance(newPos, food))
             minFoodDist = min(distanceFoodScore)
+            minFoodDist = max(minFoodDist, 0.1) # avoid div by 0 error
             foodScore = (1.0/minFoodDist)
         else:
             foodScore = 0
@@ -92,7 +93,7 @@ class ReflexAgent(Agent):
             for ghost in newGhostStates:
                ghostPos.append(util.manhattanDistance(newPos, ghost.getPosition()))
             minGhostPos = min(ghostPos)
-            minGhostPos = max(minGhostPos, 0.1)
+            minGhostPos = max(minGhostPos, 0.1) # avoid div by 0 error
             ghostScore = (1.0/minGhostPos)
         else:
             ghostScore = -1
