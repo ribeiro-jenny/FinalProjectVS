@@ -59,7 +59,9 @@ Below is a description of each part, the corresponding specific test command, an
 This will run the provided autograder from UC Berkely. Their grading requirements are described in the links above. These can be run without the graphical component by using `--no-graphics`. Modify the "scriptArguments" in `launch.vs.json`.
 The autograder checks for the algorithms correctness and also runs the algorithm in game. So the autograder grade is based on the algorithms tests and the average score/wins of the in game tests.
 
-### Part 1
+### Part 1 Multi-Agent Search
+
+Explores different decission making algorithms for the different agents in pacman.
 
 #### Q1 Reflex Agent
 
@@ -118,7 +120,7 @@ The algorithm pseudocode is:
 
 ```
 multiAgents.py:217
-    - MinimaxAgent
+    - AlphaBetaAgent
 ```
 
 #### Q4 Expectimax
@@ -165,9 +167,8 @@ Each consideration added or deducted from the score at different rates. For exam
 ##### Files Edited
 ```
 multiAgents.py:385
-    - betterEvaluationFunction
+    - betterEvaluationFunction()
 ```
-
 
 #### General Discussion of Part 1
 
@@ -176,25 +177,109 @@ Assuming that the enemy makes the best move can lead to an early death or an elo
 Constratingly, using a probablitic model can improve on the simple assumption but can still lead to deaths when chances are taking while assuming non-optimal moves for the enemy.
 Overall, the expetimax algorthim would be the most fun to play agaisn't because it isn't predictable.
 
-### Part 2
+### Part 2 GhostBusters
 
-#### Q1
+In this version of pacman, pacman sadly cannot see the ghosts but he can hear them! The following explores different algorithms for locating the ghosts.
+The pacman hears via noisy readings of the manhattan distance to the ghost.
+
+For these implementations each has a playable version and a auto play version by a greedy pacman. In the auto play the ghosts have been displayed (`-s`) so that the process can be easily visualized. In the playable version no ghosts are shown to be true to pacmans perspective.
+
+Play `2 Tracking Buster Player` for a crude tracking algorithm. This can be compared to the improvements made bellow in tracking.
+
+Note: The brighter the tile the more certain pacman is that there is a ghost located there
+ 
+#### Q1 - Q2 Exact Interface
+
 ##### Description 
+Implemented the update of pacmans belief distribution based on the sensor information. The distrubition starts out uniform and is updated to the information gathered at each turn. When a ghost is captured its distrubition is removed.
+
+Q2 builds on this initial implementation and includes filtering the noisy data. Because the pacman tracks time it can filter out data that says the pacman went from 2 squares away to 10 because a ghost can only move one square per turn.
+
+The Progression can be seen:
+![particles](imgs/Exact1.JPG)
+![particles](imgs/Exact2.JPG)
+
 ##### Files Edited
-#### Q2
+```
+interface.py:111
+    - ExactInference::observe()
+    - ExactInference::elapseTime()
+```
+
+#### Q3 Greedy Agent
 ##### Description 
+
+The greedy pacman agents assumes that the ghost is located in the most likely square based on its observations. It will move towards the most likely closest ghost (so the closets square with the highest probability).
+
 ##### Files Edited
-#### Q3
+```
+bustersAgents.py:125
+    - GreedyBustersAgent::chooseAction()
+```
+
+#### Q4 - Q5 Particle Filter
 ##### Description 
+
+Q4 - Q5 focused on implementing a particle filtering algorithm for locating the ghost. The algorithm does ____
+
+Particles are used to mirror the probability distribution as shown:
+![particles](imgs/particleTimeLine.JPG)
+
+Q5 extends this algorithm by filtering out noisy data as explained in Q1
+
+![particles](imgs/particleFilter.JPG)
+
 ##### Files Edited
-#### Q4
+```
+interface.py:241
+    - ParticleFilter::observe()
+    - ParticleFilter::elapseTime()
+    - ParticleFilter::initializeUniformly()
+    - ParticleFilter::getBeliefDistribution()
+```
+#### Q6 - Q7 Joint Particle Filter
 ##### Description 
+
+This algorithm improves on the Q4-Q5 by now considering multiple ghosts simiulationasly versus as previously tracking each on independtly. This is done using a dynamic Bayes net.
+
+Each particle is now a tuple of ghost positions rather than just a single position. 
+
+Q7 extends this algorithm by filtering out noisy data as explained in Q1
+
+
+The Progression can be seen:
+![particles](imgs/JointFilter1.JPG)
+![particles](imgs/JointFilter2.JPG)
+
+
 ##### Files Edited
-#### Q5
-##### Description 
-##### Files Edited
+```
+interface.py:410
+    - JointParticleFilter::observeState()
+    - JointParticleFilter::elapseTime()
+    - JointParticleFilter::initializeParticles()
+    - JointParticleFilter::getBeliefDistribution()
+    - JointParticleFilter::jailGhosts()
+```
+
+
+#### General Discussion of Part 2
+
+The most diffucult part of this part was the particle filtering. Originally I mistakenly tripled the particle count causing the algorithm to run incredible slowly. Particle filtering is an expensive computation that can be speed up with parallezation. It would be intresting to extend this assigment by paralizing the filtering to see what the speed up would be.
+
+Although it was intresting to explore particle filters would not be useful for Game AI. It is most useful in uncontrelled, volitale enviorments. Since you can give all the information needed in a game to any agent this algorithm would be over kill. It is computationally expensive and wouldn't improve the game play by using it.
+
+
 ## Refrences
 
 http://ai.berkeley.edu/lecture_slides.html
+
 https://towardsdatascience.com/how-a-chess-playing-computer-thinks-about-its-next-move-8f028bd0e7b1
+
 https://en.wikipedia.org/wiki/Alpha%E2%80%93beta_pruning
+
+https://courses.cs.washington.edu/courses/cse473/12au/pacman/tracking/busters.html
+
+https://towardsdatascience.com/optimal-estimation-algorithms-kalman-and-particle-filters-be62dcb5e83
+
+https://towardsdatascience.com/particle-filter-a-hero-in-the-world-of-non-linearity-and-non-gaussian-6d8947f4a3dc

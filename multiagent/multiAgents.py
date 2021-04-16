@@ -362,7 +362,6 @@ def betterEvaluationFunction(currentGameState):
     newScaredTimes = [ghostState.scaredTimer for ghostState in newGhostStates]
     ghostKillers = currentGameState.getCapsules()
 
-
      # The closer the food better the score
     foodScore = 0
     distanceFoodScore = []
@@ -407,19 +406,5 @@ def betterEvaluationFunction(currentGameState):
 
     return  foodScore + currentGameState.getScore() - ghostScore + killerScore + scaredScore
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 # Abbreviation
 better = betterEvaluationFunction
-

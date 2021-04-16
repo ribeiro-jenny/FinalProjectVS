@@ -275,13 +275,10 @@ class ParticleFilter(InferenceModule):
         particlesPerTile = self.numParticles / len(self.legalPositions)
         self.particles = []
 
+        # evenly distribute particles
         for pos in self.legalPositions:
             for x in range(particlesPerTile):
                 self.particles.append(pos)
-
-        #for x in range(self.numParticles):
-        #    for pos in self.legalPositions:
-        #        self.particles.append(pos)
 
     def observe(self, observation, gameState):
         """
@@ -315,7 +312,6 @@ class ParticleFilter(InferenceModule):
         pacmanPosition = gameState.getPacmanPosition()
         "*** YOUR CODE HERE ***"
         
-
        # ghost is captured -> all particles should be updated to self.getJailPosition()
         if noisyDistance == None:
             self.particles = []
@@ -337,8 +333,8 @@ class ParticleFilter(InferenceModule):
         if allPossible.totalCount() == 0.0:
             self.initializeUniformly(gameState)
         else:
+            # resample based on new distribution
             self.particles = []
-            
             for p in range(self.numParticles):
                 self.particles.append(util.sample(allPossible))
 
@@ -452,6 +448,7 @@ class JointParticleFilter:
         self.particles = []
         permGhostPos =list(itertools.product(self.legalPositions, repeat = self.numGhosts))
         random.shuffle(permGhostPos)
+
         # A particle (sample) is a ghost position
         particlesPerTile = self.numParticles / len(self.legalPositions)
         for x in range(0, self.numParticles):
@@ -468,6 +465,7 @@ class JointParticleFilter:
     def getJailPosition(self, i):
         return (2 * i + 1, 1);
     
+    # When a ghost is captured by Pacman, all particles should be updated so that the ghost appears in its prison cell
     def jailGhosts(self, noisyDistances):
         for i in range(self.numGhosts):
             particles = []
@@ -511,42 +509,31 @@ class JointParticleFilter:
             return
         emissionModels = [busters.getObservationDistribution(dist) for dist in noisyDistances]
 
-
-
         "*** YOUR CODE HERE ***"
         particles = []
         allPossible = util.Counter() 
 
+        # checks if ghost has been located -> jail him if so
         self.jailGhosts(noisyDistances)
-
+        
+        # for uncaptured ghosts update prob
         for p in self.particles:
             prob = 1.0
             for i in range(self.numGhosts):
                 if noisyDistances[i] != None:              
                     trueDistance = util.manhattanDistance(p[i], pacmanPosition)
                     prob *= emissionModels[i][trueDistance] 
-                    #if emissionModels[i][trueDistance] > 0:
             allPossible[p] += prob 
         
-        #for newParticle in self.particles:
-        #    weight = 1.0
-        #    for i in range(0,self.numGhosts):
-        #        if noisyDistances[i] == None:
-        #            break
-        #        else:
-        #            weight *= emissionModels[i][util.manhattanDistance(newParticle[i], pacmanPosition)]
-        #    allPossible[tuple(newParticle)] += weight
-
+        # all particles receive 0 weight -> recreat from the prior distribution by calling initializeParticles
         if allPossible.totalCount() == 0.0:
             self.initializeParticles()
         else:
+            # otherwise resample with new probs
             allPossible.normalize()
-
             self.particles = []
             for p in range(self.numParticles):
                 self.particles.append(util.sample(allPossible))
-
-
 
     def getParticleWithGhostInJail(self, particle, ghostIndex):
         """
@@ -607,13 +594,11 @@ class JointParticleFilter:
             # now loop through and update each entry in newParticle...
 
             "*** YOUR CODE HERE ***"
+
             for i in range(self.numGhosts):
                 newPosDist = getPositionDistributionForGhost(setGhostPositions(gameState, newParticle), i, self.ghostAgents[i])
                 newParticle[i] = util.sample(newPosDist)
-                
-            #When all your particles receive zero weight based on the evidence, you should resample all particles from the prior to recover.
-            
-            # When a ghost is eaten, you should update all particles to place that ghost in its prison cell, as described in the comments of observeState
+                            
             "*** END YOUR CODE HERE ***"
             newParticles.append(tuple(newParticle))
         self.particles = newParticles
