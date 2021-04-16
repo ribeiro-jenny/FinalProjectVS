@@ -217,7 +217,7 @@ bustersAgents.py:125
 
 ##### Description 
 
-Q4 - Q5 focused on implementing a particle filtering algorithm for locating the ghost. The algorithm does ____
+Q4 - Q5 focused on implementing a particle filtering algorithm for locating the ghost. The algorithm follows this flow (as shown in the picture below): initial distribution -> sampling -> weighting -> resampling. This repeats on every turn.
 
 Particles are used to mirror the probability distribution as shown:
 ![particles](imgs/particleTimeLine.JPG)
@@ -240,7 +240,7 @@ interface.py:241
 
 ##### Description 
 
-This algorithm improves on the Q4-Q5 by now considering multiple ghosts simiulationasly versus tracking each on independently. This is done using a dynamic Bayes net and particles. Each particle is now a tuple of ghost positions rather than just a single position. The algorithm follows the same structure above: sample -> resample -> something
+This algorithm improves on the Q4-Q5 by now considering multiple ghosts simiulationasly versus tracking each on independently. This is done using a dynamic Bayes net and particles. Each particle is now a tuple of ghost positions rather than just a single position. The algorithm follows the same structure above: initial distribution -> sampling -> weighting -> resampling.
 
 Q7 extends this algorithm by filtering out noisy data as explained in Q1.
 
