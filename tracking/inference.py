@@ -155,10 +155,10 @@ class ExactInference(InferenceModule):
             allPossible[self.getJailPosition()] = 1.0
         else:
             #update the agent's belief distribution over ghost positions given an observation from Pacman's sensors
-            for p in self.legalPositions:
-                trueDistance = util.manhattanDistance(p, pacmanPosition)
+            for pos in self.legalPositions:
+                trueDistance = util.manhattanDistance(pos, pacmanPosition)
                 if emissionModel[trueDistance] > 0:
-                    allPossible[p] = emissionModel[trueDistance] * self.beliefs[p]
+                    allPossible[pos] = emissionModel[trueDistance] * self.beliefs[pos]
 
         "*** END YOUR CODE HERE ***"
 
@@ -222,13 +222,13 @@ class ExactInference(InferenceModule):
         allPossible = util.Counter()
        
         # previous ghost position = p
-        for p in self.legalPositions:
-            # distribution over new positions for the ghost, given its previous position (p) as well as Pacman's current  position
-            newPosDist = self.getPositionDistribution(self.setGhostPosition(gameState, p))
+        for pos in self.legalPositions:
+            # distribution over new positions for the ghost, given its previous position (pos) as well as Pacman's current  position
+            newPosDist = self.getPositionDistribution(self.setGhostPosition(gameState, pos))
 
             for newPos, prob in newPosDist.items():
-                # newPosDist[p] = Pr( ghost is at position p at time t + 1 | ghost is at position oldPos at time t )
-                allPossible[newPos] = allPossible[newPos] + (prob * self.beliefs[p])
+                # newPosDist[pos] = Pr( ghost is at position pos at time t + 1 | ghost is at position oldPos at time t )
+                allPossible[newPos] = allPossible[newPos] + (prob * self.beliefs[pos])
         
         allPossible.normalize()
         self.beliefs = allPossible
@@ -312,17 +312,17 @@ class ParticleFilter(InferenceModule):
        # ghost is captured -> all particles should be updated to self.getJailPosition()
         if noisyDistance == None:
             self.particles = []
-            for p in range(self.numParticles):
+            for pos in range(self.numParticles):
                 self.particles.append(self.getJailPosition())
             return
         else:
             allPossible = util.Counter()
             #  Update beliefs based on the given distance observation
             prob = self.getBeliefDistribution()
-            for p in self.legalPositions:
-                trueDistance = util.manhattanDistance(p, pacmanPosition)
+            for pos in self.legalPositions:
+                trueDistance = util.manhattanDistance(pos, pacmanPosition)
                 if emissionModel[trueDistance] > 0.0:
-                    allPossible[p] += emissionModel[trueDistance] * prob[p]
+                    allPossible[pos] += emissionModel[trueDistance] * prob[pos]
         allPossible.normalize()
 
         # if all particles have weight 0 -> resample particles uniformly at random from the set of legal positions
@@ -447,8 +447,8 @@ class JointParticleFilter:
 
         # A particle (sample) is a ghost position
         particlesPerTile = self.numParticles / len(self.legalPositions)
-        for x in range(0, self.numParticles):
-            particle = permGhostPos[x % len(permGhostPos)]
+        for p in range(0, self.numParticles):
+            particle = permGhostPos[p % len(permGhostPos)]
             self.particles.append(tuple(particle))
         
     def addGhostAgent(self, agent):
