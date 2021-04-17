@@ -105,7 +105,9 @@ multiAgents.py:76
 ```
 
 ##### Corresponding StartUp Item
+```
 | 1.1 multiagent reflex agent		            | python pacman.py --frameTime 0 -p ReflexAgent -k 1                                                |  
+```
 
 #### Q2 MiniMax Agent
 
@@ -128,7 +130,9 @@ multiAgents.py:147
 ```
 
 ##### Corresponding StartUp Item
+```
 | 1.2 multiagent minimax agent		            | python pacman.py --p MinimaxAgent -l minimaxClassic -a depth=4                                    |  
+```
 
 #### Q3 Alpha-Beta Pruning
 
@@ -149,7 +153,9 @@ multiAgents.py:217
 ```
 
 ##### Corresponding StartUp Item
+```
 | 1.3 multiagent alpha-beta agent	            | python pacman.py -p AlphaBetaAgent -a depth=3 -l smallClassic                                     |  
+```
 
 #### Q4 Expectimax
 
@@ -177,7 +183,9 @@ multiAgents.py:286
 ```
 
 ##### Corresponding StartUp Item
+```
 | 1.4 multiagent expecti-max agent              | python pacman.py -p ExpectimaxAgent -l smallClassic -a depth=3                                    |  
+```
 
 #### Q5 Even Better Evaluation Function
 
@@ -202,7 +210,9 @@ multiAgents.py:385
 ```
 
 ##### Corresponding StartUp Item
+```
 | 1.5 multiagent autograder q5			        | python autograder.py  -q q5                                                                       |  
+```
 
 #### General Discussion of Part 1
 
@@ -242,8 +252,10 @@ interface.py:111
 ```
 
 ##### Corresponding StartUp Item
+```
 | 2.1-.2 ExactInference Play			        | python busters.py  -l bigHunt -a inference=ExactInference                                         |  
 | 2.1-.2 ExactInference Greedy Buster Auto		| python busters.py -l bigHunt -s -a inference=ExactInference -p GreedyBustersAgent                 |  
+```
 
 #### Q3 Greedy Agent
 
@@ -259,7 +271,9 @@ bustersAgents.py:125
 ```
 
 ##### Corresponding StartUp Item
+```
 | 2.3 GreedyBustersAgent Auto			        | python busters.py -p GreedyBustersAgent -s -a inference=ExactInference                            |  
+```
 
 #### Q4 - Q5 Particle Filter
 
@@ -285,8 +299,10 @@ interface.py:241
 ```
 
 ##### Corresponding StartUp Item
+```
 | 2.4-.5 ParticleFilter Play			        | python busters.py  -k 1 -a inference=ParticleFilter                                               |  
 | 2.4-.5 ParticleFilter Greedy Buster Auto		| python busters.py  -k 1 -s -a inference=ParticleFilter -p GreedyBustersAgent                      |  
+```
 
 #### Q6 - Q7 Joint Particle Filter
 
@@ -314,8 +330,10 @@ interface.py:410
 ```
 
 ##### Corresponding StartUp Item
+```
 |2.6-.7 JointParticleFilter Play			    | python busters.py  -k 3 -a inference=MarginalInference -g DispersingGhost                         |  
 |2.6-.7 JointParticleFilter Greedy Buster Auto	| python busters.py -s -k 3 -a inference=MarginalInference -g DispersingGhost -p GreedyBustersAgent |  
+```
 
 #### General Discussion of Part 2
 
