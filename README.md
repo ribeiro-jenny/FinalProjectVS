@@ -229,8 +229,9 @@ Here the update of pacmans belief distribution based on the sensor information w
 Q2 builds on this initial implementation and includes filtering the noisy data. Because the pacman tracks time it can filter out data that says the pacman went from 2 squares away to 10 because a ghost can only move one square per turn.
 
 The progression of the distribution can be seen:
-![particles](imgs/Exact1.JPG)
 ![particles](imgs/Exact2.JPG)
+![particles](imgs/Exact1.JPG)
+
 
 ##### Files Edited
 
