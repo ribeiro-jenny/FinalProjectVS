@@ -70,7 +70,7 @@ The autograder checks for the algorithms correctness and also runs the algorithm
 To run the autograde, especially the one that grades the particle filter, it is best to run on the Khoury server:
 
 ```
-ssh username@login.neu.edu
+ssh username@login.khoury.northeastern.edu
 
 git clone https://github.com/ribeiro-jenny/FinalProjectVS/settings
 
