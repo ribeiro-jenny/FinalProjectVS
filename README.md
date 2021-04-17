@@ -339,7 +339,8 @@ interface.py:410
 
 The most difficult part of this section was the particle filtering. Originally, I mistakenly tripled the particle count, causing the algorithm to run incredibly slowly. Particle filtering is an expensive computation that can be sped up with parallezation. It would be interesting to extend this assignment by paralizing the filtering to see what the speed up would be.
 
-Although it was interesting to explore particle filters, I do not think it would be useful for Game AI. It has been most used in Robot localization and SLAM. Since you can give agents all information needed in a game, this algorithm would be overkill. It is computationally expensive and wouldn't improve the gameplay by using it.
+Although it was interesting to explore particle filters, I do not think it would be the most useful for Game AI yet. It has been most used in Robot localization and SLAM. I think it can be adapted to games once computers become more powerful.
+With good parallelization the particle filter can be used to represent a realistic AI. The filter can provide a variety of different distributions given the same input. So it could be used to provide variation in game play. Although, this method might be overkill when games can give AI free information.
 
 ## Refrences
 
