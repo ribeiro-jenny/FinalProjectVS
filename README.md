@@ -8,7 +8,7 @@ Part 1: MultiAgent
 http://ai.berkeley.edu/multiagent.html
 
 Part 2: Ghostbuster Tracking
-http://ai.berkeley.edu/tracking.ht
+http://ai.berkeley.edu/tracking.html
 
 ### How to Run on Windows Visual Studio 2019
 1. Open Visual Studio
