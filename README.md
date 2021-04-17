@@ -339,7 +339,7 @@ interface.py:410
 
 The most difficult part of this section was the particle filtering. Originally, I mistakenly tripled the particle count, causing the algorithm to run incredibly slowly. Particle filtering is an expensive computation that can be sped up with parallezation. It would be interesting to extend this assignment by paralizing the filtering to see what the speed up would be.
 
-Although it was interesting to explore particle filters, I do not think it would be useful for Game AI. It is most useful in uncontrolled volitale enviorments. Since you can give agents all information needed in a game, this algorithm would be overkill. It is computationally expensive and wouldn't improve the gameplay by using it.
+Although it was interesting to explore particle filters, I do not think it would be useful for Game AI. It has been most used in Robot localization and SLAM. Since you can give agents all information needed in a game, this algorithm would be overkill. It is computationally expensive and wouldn't improve the gameplay by using it.
 
 ## Refrences
 
@@ -354,3 +354,5 @@ https://courses.cs.washington.edu/courses/cse473/12au/pacman/tracking/busters.ht
 https://towardsdatascience.com/optimal-estimation-algorithms-kalman-and-particle-filters-be62dcb5e83
 
 https://towardsdatascience.com/particle-filter-a-hero-in-the-world-of-non-linearity-and-non-gaussian-6d8947f4a3dc
+
+http://web.mit.edu/16.412j/www/html/Advanced%20lectures/Slides/Hsaio_plinval_miller_ParticleFiltersPrint.pdf
