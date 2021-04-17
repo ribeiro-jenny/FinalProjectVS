@@ -150,9 +150,7 @@ class ExactInference(InferenceModule):
         allPossible = util.Counter()
         "*** YOUR CODE HERE ***"
 
-        # Replace this code with a correct observation update
-        # Be sure to handle the "jail" edge case where the ghost is eaten
-        # and noisyDistance is None
+        # and noisyDistance is None -> jail ghost
         if (noisyDistance == None):
             allPossible[self.getJailPosition()] = 1.0
         else:
@@ -230,7 +228,7 @@ class ExactInference(InferenceModule):
 
             for newPos, prob in newPosDist.items():
                 # newPosDist[p] = Pr( ghost is at position p at time t + 1 | ghost is at position oldPos at time t )
-                allPossible[newPos] = allPossible[newPos] + (prob *self.beliefs[p])
+                allPossible[newPos] = allPossible[newPos] + (prob * self.beliefs[p])
         
         allPossible.normalize()
         self.beliefs = allPossible
@@ -253,7 +251,6 @@ class ParticleFilter(InferenceModule):
 
     def setNumParticles(self, numParticles):
         self.numParticles = numParticles
-
 
     def initializeUniformly(self, gameState):
         """
@@ -327,7 +324,6 @@ class ParticleFilter(InferenceModule):
                 if emissionModel[trueDistance] > 0.0:
                     allPossible[p] += emissionModel[trueDistance] * prob[p]
         allPossible.normalize()
-       
 
         # if all particles have weight 0 -> resample particles uniformly at random from the set of legal positions
         if allPossible.totalCount() == 0.0:

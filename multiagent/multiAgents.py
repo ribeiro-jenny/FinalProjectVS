@@ -28,7 +28,6 @@ class ReflexAgent(Agent):
       headers.
     """
 
-
     def getAction(self, gameState):
         """
         You do not need to change this method, but you're welcome to.
@@ -60,7 +59,7 @@ class ReflexAgent(Agent):
 
         The code below extracts some useful information from the state, like the
         remaining food (newFood) and Pacman position after moving (newPos).
-        newScaredTimes holds the number of moves that each ghost will remain
+        scaredTimeList holds the number of moves that each ghost will remain
         scared because of Pacman having eaten a power pellet.
 
         Print out these variables to see what you're getting, then combine them
@@ -70,8 +69,8 @@ class ReflexAgent(Agent):
         successorGameState = currentGameState.generatePacmanSuccessor(action)
         newPos = successorGameState.getPacmanPosition()
         newFood = successorGameState.getFood()
-        newGhostStates = successorGameState.getGhostStates()
-        newScaredTimes = [ghostState.scaredTimer for ghostState in newGhostStates]
+        ghostStateList = successorGameState.getGhostStates()
+        scaredTimeList = [ghostState.scaredTimer for ghostState in ghostStateList]
 
         "*** YOUR CODE HERE ***"
 
@@ -89,8 +88,8 @@ class ReflexAgent(Agent):
 
         # The closer a Ghost is the worse the score
         ghostPos= []
-        if len(newGhostStates) > 0:
-            for ghost in newGhostStates:
+        if len(ghostStateList) > 0:
+            for ghost in ghostStateList:
                ghostPos.append(util.manhattanDistance(newPos, ghost.getPosition()))
             minGhostPos = min(ghostPos)
             minGhostPos = max(minGhostPos, 0.1) # avoid div by 0 error
@@ -104,7 +103,7 @@ class ReflexAgent(Agent):
 
         # ghost is eatable!
         scaredScore = 0
-        for scared in newScaredTimes:
+        for scared in scaredTimeList:
             if scared > minGhostPos:
                 scaredScore += scared
                 ghostScore = 0
@@ -358,8 +357,8 @@ def betterEvaluationFunction(currentGameState):
     "*** YOUR CODE HERE ***"
     foodList = currentGameState.getFood().asList()
     pacPos = currentGameState.getPacmanPosition()
-    newGhostStates = currentGameState.getGhostStates()
-    newScaredTimes = [ghostState.scaredTimer for ghostState in newGhostStates]
+    ghostStateList = currentGameState.getGhostStates()
+    scaredTimeList = [ghostState.scaredTimer for ghostState in ghostStateList]
     ghostKillers = currentGameState.getCapsules()
 
      # The closer the food better the score
@@ -369,12 +368,12 @@ def betterEvaluationFunction(currentGameState):
         for food in foodList:
             distanceFoodScore.append(util.manhattanDistance(pacPos, food))
         minFoodDist = min(distanceFoodScore)
-        foodScore = (1.0 / minFoodDist) * 10.0
+        foodScore = (1.0 / minFoodDist) * 10.0  
 
     # The closer a Ghost is the worse the score
     ghostPos= []
-    if len(newGhostStates) > 0:
-        for ghost in newGhostStates:
+    if len(ghostStateList) > 0:
+        for ghost in ghostStateList:
             ghostPos.append(util.manhattanDistance(pacPos, ghost.getPosition()))
         minGhostPos = min(ghostPos)
 
@@ -399,7 +398,7 @@ def betterEvaluationFunction(currentGameState):
 
     # ghost is eatable!
     scaredScore = 0
-    for scared in newScaredTimes:
+    for scared in scaredTimeList:
         if scared > minGhostPos:
             scaredScore += scared
             ghostScore = 0

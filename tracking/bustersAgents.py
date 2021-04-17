@@ -165,16 +165,14 @@ class GreedyBustersAgent(BustersAgent):
             [beliefs for i, beliefs in enumerate(self.ghostBeliefs)
              if livingGhosts[i+1]]
         "*** YOUR CODE HERE ***"
-       
 
         # first move to most likely position of uncaptured ghosts
         # ghost = {pos : prob}
         returnValue = ((0,0), 0.0)
         for ghost in livingGhostPositionDistributions:
-            sortedDic = sorted(ghost.items(), key=itemgetter(1), reverse=True)   
-            returnValue = sortedDic[0]
+            sortedLikelihoodList = sorted(ghost.items(), key=itemgetter(1), reverse=True)   
+            returnValue = sortedLikelihoodList[0]
            
-        
         # next minimize distance to closest ghost
         returnAction = []
         bestMove = Directions.STOP
